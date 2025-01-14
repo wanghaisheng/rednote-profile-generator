@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Refugee Site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+             border-bottom: 1px solid #ddd;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        h2 {
+            margin-bottom: 10px;
+            text-align: center;
+            color: #222;
+        }
+        p{
+          margin-bottom: 20px;
+         }
+        .intro{
+            margin-bottom: 20px;
+        }
+        .challenges, .tips, .generator-promo, .community{
+            margin-bottom: 20px;
+              padding: 20px;
+              border-radius: 10px;
+               border: 1px solid #ddd;
+        }
+        .generator-promo p{
+            margin-bottom: 10px;
+        }
+
+        .promo-button{
+            padding: 15px 30px;
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+           font-size: 1.1rem;
+        }
+         #device-list {
+          display:flex;
+          flex-direction: column;
+        }
+
+        .brand-section {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .device-list {
+           padding-left: 20px; /* Indent device lists */
+           display:flex;
+            flex-direction: column;
+
+        }
+        .device-item{
+         padding-bottom: 10px;
+         border-bottom: 1px solid #eeeeee
+        }
+        .device-item strong {
+            display: block;
+            margin-top: 5px;
+        }
+        .device-item p {
+          margin-top: 5px;
+        }
+        .device-item span {
+          font-weight: bold;
+        }
+        #brand-list{
+         display: grid;
+         grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+         gap: 20px;
+       }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+       nav ul li a {
+          text-decoration:none;
+          color: blue;
+         }
+
+         .dark-mode-logo{
+           display: none;
+           }
+
+          .light-mode-logo {
+            display: block;
+          }
+
+       body.dark-mode .dark-mode-logo{
+           display: block;
+        }
+       body.dark-mode .light-mode-logo {
+             display: none;
+        }
+        #generator{
+         width: 70%;
+         display:flex;
+          flex-direction: column;
+          border:1px solid black;
+          padding: 10px;
+          border-radius: 10px;
+       }
+      .input-group{
+         display:flex;
+         flex-direction: column;
+         margin-bottom: 10px;
+        }
+      .input-group label{
+          margin-bottom: 5px;
+          font-weight: bold;
+        }
+      .input-group input{
+        padding: 8px;
+     }
+    #generateButton {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+       color: white;
+      border: none;
+      border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+    #preview{
+         border:1px solid black;
+          padding: 10px;
+          border-radius: 10px;
+          width: 70%;
+       margin-bottom: 10px;
+     }
+   #profile-area{
+      display: flex;
+        flex-direction: column;
+   }
+    #output {
+       width: 70%;
+        margin-top: 20px;
+         border: 1px solid black;
+        padding: 10px;
+        border-radius: 10px;
+         display:flex;
+         flex-direction: column;
+       text-align: center;
+    }
+    #codeOutput{
+       margin: 10px 0;
+        padding: 5px;
+    }
+    #downloadImg, #saveCode{
+        padding: 8px;
+        margin: 5px;
+       background-color: blue;
+        color:white;
+       border-radius: 8px;
+         border: none;
+        cursor: pointer;
+      }
+       ul {
+          list-style-type: disc; /* Or another list style */
+          padding-left: 25px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TikTok Refugee Site</h1>
+    </header>
+    <main>
+      <nav>
+        <ul>
+          <li><a href="#" onclick="showContent('brands')">View Brands (A-Z)</a></li>
+          <li><a href="#" onclick="showContent('devices')">View Devices (A-Z)</a></li>
+          <li><a href="#" onclick="showContent('home')">Home</a></li>
+           <li><a href="#" onclick="showContent('rednote-guide')">RedNote Guide</a></li>
+        </ul>
+      </nav>
+         <section id="filters" style="display:none">
+          <label for="equipmentType">Equipment Type:</label>
+         <select id="equipmentType">
+            <option value="all">All</option>
+           <option value="ctScanners">CT Scanners</option>
+             <option value="mriScanners">MRI Scanners</option>
+        </select>
+        </section>
+        <section id="brand-list"  style="display:none">
+           <!-- Brands will be populated here -->
+       </section>
+       <section id="device-list" style="display:none">
+           <!-- Devices will be populated here, will be generated in js -->
+         </section>
+       <section id="home" style="display:block">
+          <div class="content-container">
+              <section class="hero">
+                <div class="hero-text">
+                     <h2>The super fast color palette generator</h2>
+                       <p>Create beautiful palettes by picking colors from images. Start for free.</p>
+                </div>
+                 <div class="hero-buttons">
+                     <button class="upload-button">Upload Image</button>
+                       <button class="paste-button">Paste URL</button>
+                   </div>
+            </section>
+                <section class="features">
+                  <h2>Pick Colors From Images</h2>
+                   <div class="feature-cards">
+                       <div class="feature-card">
+                            <h3>Image from File</h3>
+                           <p>Upload an image file from your device to extract its color palette.</p>
+                        </div>
+                       <div class="feature-card">
+                            <h3>Image from URL</h3>
+                            <p>Input the url of an image to extract it's colors.</p>
+                        </div>
+                        <div class="feature-card">
+                          <h3>Download</h3>
+                           <p>Download the color palette as a variety of file types.</p>
+                        </div>
+                   </div>
+              </section>
+            <section class="popular">
+                <h2>Latest Palettes</h2>
+                <div class="palette-cards">
+                  <div class="palette-card">
+                      <div class="color-swatch" style="background-color:#ff69b4;"></div>
+                       <div class="color-swatch" style="background-color:#00ced1;"></div>
+                      <div class="color-swatch" style="background-color:#ffd700;"></div>
+                     <div class="color-swatch" style="background-color:#7b68ee;"></div>
+                    </div>
+                    <div class="palette-card">
+                       <div class="color-swatch" style="background-color:#00ffff;"></div>
+                        <div class="color-swatch" style="background-color:#f0e68c;"></div>
+                       <div class="color-swatch" style="background-color:#ffa07a;"></div>
+                       <div class="color-swatch" style="background-color:#20b2aa;"></div>
+                    </div>
+                   <div class="palette-card">
+                       <div class="color-swatch" style="background-color:#add8e6;"></div>
+                       <div class="color-swatch" style="background-color:#98fb98;"></div>
+                       <div class="color-swatch" style="background-color:#ffc0cb;"></div>
+                       <div class="color-swatch" style="background-color:#ee82ee;"></div>
+                  </div>
+                </div>
+             </section>
+           </div>
+       </section>
+          <section id="rednote-guide" style = "display:none">
+            <section class="intro">
+                <p>
+                Navigating a new social media platform can be challenging, especially when you are moving from one community to another. As many "TikTok refugees" are migrating to RedNote (Xiaohongshu), creating an authentic and engaging profile can be key to your success. This blog post not only provides tips and insights, but also introduces our RedNote Profile Generator — a tool to help you build a profile that truly represents you.
+             </p>
+           </section>
+
+            <section class="challenges">
+              <h2>The Challenges of Authenticity on RedNote</h2>
+                <p>
+                   As you move into this new space, it is important to be aware of the various challenges that you will encounter.
+                     <ul>
+                         <li> **Language Barriers**: RedNote is a Chinese app, and despite a lot of content being shared in English, much of the text will still be in Chinese.</li>
+                         <li>**Cultural Differences**: The style, tone, and content that is successful on TikTok may not translate on RedNote, which has its own unique culture and expectations.</li>
+                         <li>**Technical Difficulties**: As many new users have indicated, getting a new account set up is not as simple as it should be, and requires some trial and error.</li>
+                    </ul>
+                </p>
+          </section>
+
+            <section class="tips">
+               <h2>Tips for Creating an Authentic RedNote Profile</h2>
+                 <p>
+                   Here are some tips and strategies to help you present yourself effectively on RedNote:
+                     <ul>
+                        <li>   **Craft a compelling bio:** Your bio should be a brief and engaging introduction to who you are and what you do. Be clear and specific.
+                        <li>  **Choose a recognizable username:** Use a username that aligns with your style, and is easy to find and remember.</li>
+                         <li>  **Showcase Your Skills:** Focus on the type of content you want to be known for, and create posts in that specific niche, while still trying out new things, and experimenting.</li>
+                         <li> **Share Your Story:** Be authentic and share posts that are unique to you, and your experiences.</li>
+                        <li>  **Connect with others**: Respond to comments, and interact with other users who are creating content that is similar to what you want to see.</li>
+                     </ul>
+                </p>
+             </section>
+
+            <section id="rednote-information">
+                <div class = "rednote-container">
+                  <h2>RedNote (Xiaohongshu) Information</h2>
+                  <p>
+                 Xiaohongshu, known as "RedNote" in English, is a lifestyle-focused social platform originating from China. According to their official website, its mission is to “inspire lives” by providing a platform for people to discover and connect with a range of diverse lifestyles. It is a community-driven space for discovering and sharing authentic experiences, product reviews, and lifestyle tips through a variety of visually-focused content formats like photos, videos, and detailed guides. It also integrates commerce, allowing for direct purchasing of products that are featured on the platform. RedNote has become a major destination for those displaced from TikTok as well as Chinese citizens seeking unique content.
+                  </p>
+
+                 <p>
+                    * **RedNote as a new destination:** As noted on Reddit, `r/China` and `r/Tiktokhelp`, many users are moving to RedNote as an alternative for TikTok.
+                     * Some are using RedNote as a form of protest against the ban.
+                     * The app has a growing amount of English language content, due to the influx of new users.
+                </p>
+                  <h3>Key Features for Users and Creators:</h3>
+                     <ul>
+                        <li>   **Multi-Format Content:** Share your experiences through photos, videos, and detailed guides, with numerous templates.</li>
+                        <li>   **Smart Discovery Feed:** Content is personally curated for your interests, likes, and saves.</li>
+                       <li>   **Authentic Reviews:** Share and discover honest reviews, and build a solid and trusting community.</li>
+                      <li>   **Community Engagement:** Explore various niche communities, based on shared interests, experiences or locations. Connect with other creators and users through comments and direct messages.</li>
+                        <li>   **Location Discovery:** Find new, nearby places that you may not have found before.</li>
+                       <li>   **Trending Topics:** Stay updated with trending content in areas like fashion, beauty, food, travel, and lifestyle.</li>
+                       <li> **Download and Sharing:** It is designed to make it easy for you to save your favourite content to a personal collection.</li>
+                      <li>  **E-Commerce:** Directly purchase products that are recommended or reviewed on the platform.</li>
+                       <li>   **Livestreaming:** Share your knowledge through livestreams, and engage with users in real time.</li>
+                       <li>   **Creator Platform:** A one-stop content creation platform for creators, with tools for managing content creation, data, and in-app operations.</li>
+                     </ul>
+                  <h3>Getting Started on RedNote:</h3>
+                  <ul>
+                   <li> **Download the App:** Obtain the app from either the iOS App Store or the Google Play Store. It is listed as both "RedNote", and "Xiaohongshu", so be sure to find the correct application.</li>
+                    <li> **Create an Account:** Sign up using an email, phone number, or other social media accounts.</li>
+                         <ul>
+                             <li>**Phone Number Verification Issues:** Some users have reported issues with the phone number verification process. They have indicated that they are unable to get the code to verify their account (from <a href="https://www.youtube.com/watch?v=l01N6G6hXM0&lc=UgxFTnHxLeGm1mpRwFR4AaABAg">YouTube Comments</a>). Some have also noted that the verification process does not seem to be working properly on their phone ([r/Tiktokhelp](https://www.reddit.com/r/Tiktokhelp)), and others have had to use an email or Google login to bypass this limitation (from <a href="https://www.youtube.com/watch?v=l01N6G6hXM0&lc=UgxFTnHxLeGm1mpRwFR4AaABAg">YouTube Comments</a>).
+                                     <ul>
+                                        <li>   **Solutions:**
+                                              *   Use your Apple or Google account to bypass phone verification. (<a href="https://www.youtube.com/watch?v=l01N6G6hXM0&lc=UgxFTnHxLeGm1mpRwFR4AaABAg">YouTube Comments</a>).
+                                             * If you are using a phone number, make sure to select the right country code (such as +1 for the US), as sometimes multiple +1 codes can be shown (<a href="https://www.youtube.com/watch?v=l01N6G6hXM0&lc=Ugz5-02SnpBijyd-a2x4AaABAg">YouTube Comments</a>).
+                                            *   If you have issues with the mobile app, you may be able to use the website.</li>
+                                     </ul>
+                                  </li>
+                            </ul>
+                     <li> **Set Up Your Profile:** Edit your profile details and bio, so that you can be easily found.</li>
+                    <li> **Set Language:** You can switch to English, but it will not be comprehensive. You might have to learn a few Chinese characters.
+                       <ul>
+                            <li>Many new users are posting videos in English, and some have indicated that they are also using translation tools or are learning Mandarin to better connect with other users ([r/Tiktokhelp](https://www.reddit.com/r/Tiktokhelp)).</li>
+                        </ul>
+                    </li>
+                   <li> **Explore Content:** Browse the main content feed to find interesting content. Also explore the search option to find specific topics and communities.
+                    <ul>
+                       <li> The app combines elements of both Instagram and Pinterest, as well as TikTok with a lot of visual focus, and with long-form product reviews and guides. (from <a href="https://www.youtube.com/watch?v=0F9PbCuXJq4&t=120">YouTube</a>)</li>
+                        </ul>
+                   </li>
+                </ul>
+                 <h3>Navigating RedNote:</h3>
+                  <ul>
+                    <li>  **Home:** You will be provided with a feed of videos, images, and links, based on your preferences and algorithm.</li>
+                    <li>   **Discover:** Find new communities and content using the search functionality.</li>
+                   <li>  **Following:** Connect with other users and create your own curated content stream.</li>
+                    <li>   **Profile:** View and edit your personal information, and save your favorite content.</li>
+                    </ul>
+                 <h3>How To Adapt as a TikTok Refugee:</h3>
+                    <ul>
+                       <li>   **Be Authentic:** Share your story authentically and engage with users genuinely, to find other creators and new friends.</li>
+                       <li>   **Learn Mandarin:** If you want a more involved experience, you can take the time to learn some mandarin, or use the built in translation tools.</li>
+                        <li>   **Engage with Others:** Participate in the conversation, by leaving comments, connecting with users and joining community discussions.</li>
+                        <li>   **Experiment:** Create the type of content that you have on other platforms, and see what does the best.</li>
+                     </ul>
+             </section>
+             <section id="rednote-guidelines">
+               <h2>RedNote Community Guidelines</h2>
+                   <p>
+                       Xiaohongshu encourages its users to maintain an authentic, positive, and diverse environment on the platform. In addition to complying with all local laws and regulations, they have the following guidelines:
+                       </p>
+                      <div class = "guideline-group">
+                      <h3>What To Do:</h3>
+                      <ul>
+                           <li>  **Share Original Content:** Ensure that the content you share comes from your own experience or creation. Always indicate the source if you are using other people's content, and make sure you have their permission.</li>
+                           <li>   **Disclose Sponsorships:** If your content is sponsored or promoted, disclose this to your audience. Transparency is a key value.</li>
+                            <li>   **Share Scientifically-Proven Content:** Make sure that you only share information that is scientifically-proven and can be easily checked.</li>
+                             <li>  **Share Genuine Content:** Make sure your content reflects your authentic experience.</li>
+                             <li>  **Share Content That Is Useful:** Ensure that you are providing valuable content to your users.</li>
+                             <li>  **Respect Other Users:** Be polite and respectful when you engage with other community members.</li>
+                           <li>  **Be Accepting:** Understand and accept a variety of different opinions, and backgrounds.</li>
+                          <li>  **Thank Creators:** Thank and acknowledge any creators who have provided useful information.</li>
+                            <li>  **Be Accepting:** Do not make early judgements about other people, or about the content that they post.</li>
+                            <li>   **Promote Inclusivity:** Encourage users from all backgrounds to share and interact with others.</li>
+                             <li> **Be Generous:** Show your appreciation to creators who create valuable content.</li>
+                           <li>   **Report Content Issues:** If you notice any content that is not appropriate, use the tools in the app to report it.</li>
+                     </ul>
+                   </div>
+                       <div class = "guideline-group">
+                      <h3>What NOT to Do:</h3>
+                           <ul>
+                             <li> **Avoid Misleading Content:** Don't share content that is misleading or dishonest.</li>
+                            <li> **Don't Flaunt Wealth:** If you are relatively wealthier, be empathetic and respectful, and focus on creating useful content.</li>
+                             <li>  **Avoid Over-Retouching:** Don't over-edit your posts, especially when making recommendations.</li>
+                             <li>  **No Nudity or Sexually Explicit Content:** Keep your content appropriate for a wide audience.</li>
+                            <li>  **Do Not Impersonate:** Do not attempt to impersonate another user.</li>
+                            <li>  **Avoid Inflammatory Remarks:** Don't abuse your influence by making accusations or inflammatory remarks.</li>
+                           <li> **Do Not Share Investment or Health Advice** Share health and investment information if you are a professional, and make sure you have the correct disclaimer.</li>
+                            <li>   **Don't Steal Content:** Make sure you only post your own content, and always provide credit to others who do.</li>
+                             <li> **Avoid personal Attacks**: Do not make comments that are personal or focused on appearance or other personal issues.</li>
+                           <li>   **No Clickbait:** Only post content that reflects the title, and do not attempt to use misleading titles to get more views.</li>
+                     </ul>
+                       </div>
+              </section>
+
+            <section class="faq">
+                <h2>FAQ (Based on Xiaohongshu's "Creator Encyclopedia")</h2>
+                     <p>
+                      Here are some of the common questions that Xiaohongshu/RedNote addresses in their help center:
+                        </p>
+                     <ul>
+                         <li> <strong>Is RedNote Safe?</strong>
+                             <ul>
+                                 <li>Yes, RedNote prioritizes user safety and privacy. They have strict community guidelines, content moderation, and privacy settings. Users can control who sees their content, report inappropriate behavior, and manage their personal information. Their team actively monitors the platform to maintain a safe and positive environment.</li>
+                            </ul>
+                         </li>
+                         <li> **How does RedNote compare to TikTok?**
+                           <ul>
+                                 <li>While TikTok primarily focuses on short-form videos, RedNote offers a more diverse content experience. RedNote specializes in detailed lifestyle content including photos, long-form reviews, and in-depth guides. RedNote is ideal for sharing authentic experiences, product reviews, and lifestyle tips with a focus on quality content and meaningful community engagement.</li>
+                            </ul>
+                         </li>
+                         <li> **What is RedNote?**
+                             <ul>
+                                   <li>RedNote is a lifestyle-focused social platform where users share authentic experiences through photos, videos, and detailed reviews. It's a community-driven space for discovering and sharing content about travel, food, beauty, fashion, and daily life. Unlike traditional social media, RedNote emphasizes quality content and genuine connections around shared interests.</li>
+                           </ul>
+                         </li>
+                         <li>   **How do I sign up for RedNote?**
+                              <ul>
+                                 <li>Signing up for RedNote is easy! Download the app from the App Store or Google Play Store, then create an account using your email, phone number, or social media accounts. After setting up your profile, you can start following creators, exploring content, and sharing your own stories right away.</li>
+                            </ul>
+                            </li>
+                        <li>   **Will TikTok ban affects RedNote?**
+                              <ul>
+                                 <li>No, TikTok bans do not affect RedNote. RedNote is an independent platform with its own infrastructure and community. While sharing some similar social features, RedNote operates separately from TikTok and other social media platforms, ensuring continuous service regardless of other platforms' regulatory challenges.</li>
+                           </ul>
+                             </li>
+                        <li>   **How does RedNote recommend content for me?**
+                             <ul>
+                                <li>Their smart recommendation system learns from your interests, likes, and saves to show you more content you'll love. The more you interact with posts, the better they understand your preferences to deliver personalized recommendations.</li>
+                            </ul>
+                             </li>
+                         <li>  **How can I interact with other users?**
+                               <ul>
+                                   <li>Engage with the community by leaving comments, following creators you love, and sharing your thoughts on posts. You can also direct message other users to build connections and join topic-based group discussions.</li>
+                             </ul>
+                         </li>
+                        <li>  **What makes a great post on RedNote?**
+                               <ul>
+                                   <li>The best posts are authentic and detailed. Include clear photos or videos, honest opinions, and helpful tips. Whether you're reviewing a product or sharing a travel experience, focus on providing valuable insights for others.</li>
+                            </ul>
+                        </li>
+                        <li> **How do I discover trending topics?**
+                            <ul>
+                                <li> Check their Explore page for trending topics, popular hashtags, and featured content. They regularly update trending categories to help you discover what's hot in fashion, beauty, travel, food, and more.</li>
+                           </ul>
+                         </li>
+                        <li>  **How do I build my presence on RedNote?**
+                               <ul>
+                                   <li>Start by sharing authentic content in your areas of interest. Engage with others' posts, respond to comments on your content, and use relevant hashtags. Being consistent and genuine helps you build a loyal following naturally.</li>
+                               </ul>
+                         </li>
+                    </ul>
+               </section>
+             <section class="generator-promo">
+             <h2>Introducing: The RedNote Profile Generator</h2>
+                <p>
+                    To help navigate these challenges, we've created the RedNote Profile Generator, a tool to help you create a profile that captures your identity and your brand. With this tool you will be able to easily:
+                       <ul>
+                          <li>Generate text for your username or bio.</li>
+                          <li>Generate a sharable image for other platforms.</li>
+                         <li>Copy and paste your results directly into the RedNote app.</li>
+                      </ul>
+                 </p>
+           <a href="/redbook-profile-generator.html"><button class = "promo-button">Try it Out Now</button></a>
+         </section>
+       <section class="community">
+             <h2>Join Our Community</h2>
+               <p>
+                   We are also building a community for users who have migrated from TikTok. By connecting to other users in the same boat, you can build valuable connections, find useful tips, and provide support to others who are on this migration journey.
+                   <a href="https://www.reddit.com/r/Tiktokhelp">Join the discussion on Reddit</a>
+                 </p>
+            </section>
+    </main>
+        <footer>
+        <p>
+            © 2024 TikTok Refugee. All Rights Reserved.
+        </p>
+    </footer>
+</body>
+</html>
